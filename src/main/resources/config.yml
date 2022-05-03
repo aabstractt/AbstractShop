@@ -1,0 +1,9 @@
+categories:
+  Bloques:
+    Chámpiluz:
+      item: -230:0
+      price: 10
+  Utilidades:
+    Homes:
+      command: 'addhome <player> <amount>'
+      price: 2000
