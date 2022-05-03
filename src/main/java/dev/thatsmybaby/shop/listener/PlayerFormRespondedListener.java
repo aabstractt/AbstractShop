@@ -1,6 +1,7 @@
 package dev.thatsmybaby.shop.listener;
 
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.PlayerFormRespondedEvent;
@@ -81,8 +82,10 @@ public final class PlayerFormRespondedListener implements Listener {
             FormWindowSimple formWindowSimple = new FormWindowSimple(categoryName, Placeholders.replacePlaceholders("FORM_CATEGORY_" + categoryName.toUpperCase() + "_CONTENT"));
 
             for (ShopObject object : list) {
-                formWindowSimple.addButton(new ElementButton(Placeholders.replacePlaceholders("FORM_BUTTON_" + object.getName())));
+                formWindowSimple.addButton(new ElementButton(Placeholders.replacePlaceholders("FORM_BUTTON", object.getName(), String.valueOf(object.getPrice()))));
             }
+
+            formWindowSimple.addButton(new ElementButton(Placeholders.replacePlaceholders("BACK_FORM_BUTTON")));
 
             playerCategory.put(player.getName(), categoryName);
 
@@ -93,15 +96,19 @@ public final class PlayerFormRespondedListener implements Listener {
 
         ShopObject object = list.get(clickedButtonId);
 
-        if (object == null) return;
+        if (object == null) {
+            Server.getInstance().dispatchCommand(player, "tienda");
+
+            return;
+        }
 
         FormWindowCustom formWindowCustom = new FormWindowCustom(object.getName());
 
-        formWindowCustom.addElement(new ElementInput(Placeholders.replacePlaceholders("FORM_CONTENT_INFO", object.getName(), String.valueOf(object.getPrice())), Placeholders.replacePlaceholders("FORM_INPUT_PLACEHOLDER_AMOUNT"), "1"));
+        formWindowCustom.addElement(new ElementInput(Placeholders.replacePlaceholders("FORM_CONTENT_INFO", object.getName().toLowerCase(), String.valueOf(object.getPrice())), Placeholders.replacePlaceholders("FORM_INPUT_PLACEHOLDER_AMOUNT"), "1"));
 
         objectMap.put(player.getName(), object);
 
-        player.showFormWindow(formWindowCustom);
+        player.showFormWindow(formWindowCustom, 9834);
     }
 
     public static void clearCache(String name) {

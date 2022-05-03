@@ -1,2 +1,11 @@
 FORM_TITLE: 'TIENDA DE ITEMS'
 FORM_CONTENT: ''
+CATEGORY_BUTTON: '&8{%0}'
+
+NO_ENOUGH_MONEY: 'No enough money'
+PLAYER_INVENTORY_FULL: 'Player inventory'
+OBJECT_BOUGHT: 'Item name purchased: {%0}, amount: {%1}, price: {%2}'
+INVALID_AMOUNT: 'Invalid amount'
+
+FORM_CATEGORY_BLOQUES: 'Yo q se'
+FORM_BUTTON: '{%0}\n{%1}'

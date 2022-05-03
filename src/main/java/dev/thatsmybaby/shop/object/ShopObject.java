@@ -21,7 +21,7 @@ public final class ShopObject {
     public void tryBuy(Player player, int amount) {
         int price = amount * this.price;
 
-        if (LlamaEconomy.getAPI().getMoney(player) < price) {
+        if (price > LlamaEconomy.getAPI().getMoney(player)) {
             player.sendMessage(Placeholders.replacePlaceholders("NO_ENOUGH_MONEY"));
 
             return;
