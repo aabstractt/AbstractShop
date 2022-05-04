@@ -11,6 +11,7 @@ import cn.nukkit.form.response.FormResponseCustom;
 import cn.nukkit.form.response.FormResponseSimple;
 import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.form.window.FormWindowSimple;
+import cn.nukkit.utils.TextFormat;
 import dev.thatsmybaby.shop.AbstractShop;
 import dev.thatsmybaby.shop.Placeholders;
 import dev.thatsmybaby.shop.object.ShopObject;
@@ -70,7 +71,13 @@ public final class PlayerFormRespondedListener implements Listener {
             return;
         }
 
-        CompletableFuture.runAsync(() -> object.tryBuy(player, amount));
+        CompletableFuture.runAsync(() -> {
+            try {
+                object.tryBuy(player, amount);
+            } catch (Exception e) {
+                player.sendMessage(TextFormat.RED + "An error occurred when you tried execute this action... Contact to Abstract");
+            }
+        });
     }
 
     private void handleFormWindowSimple(Player player, String categoryName, int formId, int clickedButtonId) {
@@ -90,6 +97,12 @@ public final class PlayerFormRespondedListener implements Listener {
             playerCategory.put(player.getName(), categoryName);
 
             player.showFormWindow(formWindowSimple, 9833);
+
+            return;
+        }
+
+        if (clickedButtonId >= list.size()) {
+            Server.getInstance().dispatchCommand(player, "tienda");
 
             return;
         }

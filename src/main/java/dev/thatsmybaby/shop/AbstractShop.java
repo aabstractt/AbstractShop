@@ -7,6 +7,7 @@ import dev.thatsmybaby.shop.command.ShopCommand;
 import dev.thatsmybaby.shop.listener.PlayerFormRespondedListener;
 import dev.thatsmybaby.shop.listener.PlayerQuitListener;
 import dev.thatsmybaby.shop.object.ShopObject;
+import dev.thatsmybaby.shop.utils.DiscordHook;
 import lombok.Getter;
 
 import java.io.File;
@@ -17,6 +18,8 @@ public final class AbstractShop extends PluginBase {
     @Getter private static AbstractShop instance;
 
     @Getter private final Map<String, List<ShopObject>> categoriesMap = new HashMap<>();
+
+    public static String URL = "https://discord.com/api/webhooks/971255032295063602/XngMfMl-AO5lxoJatSEw8ECLMnmGTHrycsyaMK7qi0fhafhSwldf9xzhzEzMA87KeumY";
 
     @Override
     public void onEnable() {
